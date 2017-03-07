@@ -1,0 +1,14 @@
+﻿{
+	"sequelize" :{
+		"database": "postgres",
+		"username": "postgres",
+		"password": "niigatasl",
+		"options": {
+      "host": "localhost",
+      "port":   5432,
+			"dialect": "postgres",
+			"schema": "location_system",
+			"timezone":"+09:00"
+		}
+	}
+}
