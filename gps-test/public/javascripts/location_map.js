@@ -14,7 +14,7 @@ location_map.initMap = function(lat_lng) {
     var map = new google.maps.Map(document.getElementById('map'), {
      center: lat_lng,
      scrollwheel: false,
-     zoom: 17
+     zoom: 14
     });
     // Create a marker and set its position.
     var marker = new google.maps.Marker({
