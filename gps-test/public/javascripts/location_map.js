@@ -34,6 +34,10 @@ location_map.getLocation = function(serialno) {
         lat_lng.lng = parseFloat(row.longitude);
         lat_lng.date = row.uploadtime;
       }
+      // TEST
+      lat_lng.lat += 0.3339;
+      lat_lng.lng += 0.0436;
+      //
       var d = new Date(lat_lng.date);
       d = location_map.getDateString(d, "{0}-{1}-{2}") + " " + location_map.getTimeString(d,"{0}:{1}:{2}");
       $("#date").text(d);
