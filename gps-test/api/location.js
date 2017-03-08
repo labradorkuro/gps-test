@@ -85,9 +85,13 @@ location_tbl.save = function(req, res) {
       attr = {serialno:req.body.serialno,latitude:req.body.latitude,
         longitude:req.body.longitude,altitude:req.body.altitude};
       location.schema('location_system').update(attr,{where:{id:req.body.location_id}}).then(function(result) {
+        attr.status = "OK";
+        attr.int = 60;
         res.send(attr);
       }).catch(function(error){
         console.log(error);
+        attr.status = "NG";
+        attr.int = 60;
         res.send(attr);
       });
 
@@ -98,14 +102,20 @@ location_tbl.save = function(req, res) {
       console.log("serialno:" + req.body.serialno);
       var si = location.schema('location_system').build(attr);
       si.save().then(function(result) {
+        attr.status = "OK";
+        attr.int = 60;
         res.send(attr);
       }).catch(function(error){
         console.log(error);
+        attr.status = "NG";
+        attr.int = 60;
         res.send(attr);
       });
     }
   }).catch(function(error){
     console.log(error);
+    attr.status = "NG";
+    attr.int = 60;
     res.send("");
   });
 }
