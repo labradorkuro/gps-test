@@ -14,7 +14,7 @@ location_map.initMap = function(lat_lng) {
     var map = new google.maps.Map(document.getElementById('map'), {
      center: lat_lng,
      scrollwheel: false,
-     zoom: 14
+     zoom: 17
     });
     // Create a marker and set its position.
     var marker = new google.maps.Marker({
@@ -35,8 +35,8 @@ location_map.getLocation = function(serialno) {
         lat_lng.date = row.uploadtime;
       }
       // TEST
-      lat_lng.lat += 0.3339;
-      lat_lng.lng += 0.0436;
+      lat_lng.lat += 0.3337;
+      lat_lng.lng += 0.0437;
       //
       var d = new Date(lat_lng.date);
       d = location_map.getDateString(d, "{0}-{1}-{2}") + " " + location_map.getTimeString(d,"{0}:{1}:{2}");
