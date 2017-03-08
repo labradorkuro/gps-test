@@ -12,6 +12,7 @@ import json
 import threading
 import serial
 import subprocess
+import requests
 
 VERSION_NO = "1.0b"
 INTERVAL = 10	#送信インターバル初期値 単位 sec
@@ -117,10 +118,11 @@ def parseData(values):
 
 def parseGPGLL(values):
     v = []
+    print 'parseGPGLL:%s' % values
     v = values.split(',')
-    if v[7] =='A':
-        v[1] = v[1] / 100
-        v[3] = v[3] / 100
+    if v[6] =='A':
+        v[1] = float(v[1]) / 100
+        v[3] = float(v[3]) / 100
         return v
     else:
         return []
@@ -142,7 +144,9 @@ def main():
     #g_macAddr = getMacAddr("wwan0")
     #print "<<%s>>" % g_macAddr
     firstboot = 1
-
+    headers ={
+        "pragma":"no-cache",
+    }
     port = serial.Serial(serial_port,
                       baudrate=9600,
                       #bytesize=serial.SEVENBITS,
@@ -156,15 +160,20 @@ def main():
         #10秒毎に温度湿度を計測して送信する
         values = parseData(readData())  #装置からデータ取得
         if len(values) > 0 :
-            params = urllib.urlencode({'serialno': sensor_no, 'latitude':values[1],'longitude':values[3],'altitude':0})
+            params = urllib.urlencode({'id':0,'serialno': sensor_no, 'latitude':values[1],'longitude':values[3],'altitude':0})
             try:
-
-                res = urllib2.urlopen(url, params)
+                res_data = requests.post(url,{'location_id':0,'serialno': sensor_no, 'latitude':values[1],'longitude':values[3],'altitude':0})
+                #req = urllib2.Request(url)
+                # ヘッダ設定
+                #req.add_header('', 'application/x-www-form-urlencoded')
+                # パラメータ設定
+                #req.add_data(params)
+                #res = urllib2.urlopen(req)
                 print "SEND DATA:%s" % params
-                res_data =res.read()
+                #res_data =res.read()
                 print res_data,     #,で改行されない
-                json_res = json.loads(res_data)
-                print "status=%s" % json_res['status'] + " int=%s" % json_res['int']
+                #json_res = json.loads(res_data)
+                #print "status=%s" % json_res['status'] + " int=%s" % json_res['int']
                 print '\r'
             except urllib2.URLError, e:
                 print e

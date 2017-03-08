@@ -3,7 +3,7 @@
 $(function ()　{
     'use strict';
   // 初期化
-  location_map.getLocation("1234")
+  location_map.getLocation("00000000f94084a4")
 });
 
 var location_map = location_map || {};
