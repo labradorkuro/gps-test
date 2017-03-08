@@ -111,8 +111,12 @@ def readData():
 #
 def parseData(values):
     rtn_valuse = []
-    if values[0:6]=='$GPGLL':
-        return parseGPGLL(values)
+#    if values[0:6]=='$GPGLL':
+#        return parseGPGLL(values)
+#    else:
+#        return rtn_valuse
+    if values[0:6]=='$GPGGA':
+        return parseGPGGA(values)
     else:
         return rtn_valuse
 
@@ -123,6 +127,17 @@ def parseGPGLL(values):
     if v[6] =='A':
         v[1] = float(v[1]) / 100
         v[3] = float(v[3]) / 100
+        return v
+    else:
+        return []
+
+def parseGPGGA(values):
+    v = []
+    print 'parseGPGGA:%s' % values
+    v = values.split(',')
+    if v[6] != '0':
+        v[1] = float(v[2]) / 100
+        v[3] = float(v[4]) / 100
         return v
     else:
         return []
