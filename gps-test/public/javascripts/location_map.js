@@ -53,7 +53,8 @@ location_map.getDateString = function (date, format_str) {
 location_map.getTimeString = function (date, format_str) {
 	var date_format = location_map.format(format_str,
 			date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
-			date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+      date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+      date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()
 	);
 	return date_format;
 };
