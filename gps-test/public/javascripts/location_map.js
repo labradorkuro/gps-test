@@ -30,8 +30,8 @@ location_map.getLocation = function(serialno) {
   $.get(req_url,function(response) {
       for(var i = 0;i < response.records;i++) {
         var row = response.rows[i].cell;
-        lat_lng.lat = Number(row.latitude);
-        lat_lng.lng = Number(row.longitude);
+        lat_lng.lat = parseFloat(row.latitude);
+        lat_lng.lng = parseFloat(row.longitude);
         lat_lng.date = row.uploadtime;
       }
       var d = new Date(lat_lng.date);
