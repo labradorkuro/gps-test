@@ -12,6 +12,18 @@ html(lang="ja")
   body
     block content
       p Welcome to #{title}
-      label 更新日時：
-      label#date
+        label 更新日時：
+        label#date
+      p
+        table
+          tr
+            td
+              label latitude
+            td
+              label#lat
+          tr
+            td
+              label longitude
+            td
+              label#lng
       div#map(style="width:600px;height:600px;")

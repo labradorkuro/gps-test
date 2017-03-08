@@ -37,6 +37,8 @@ location_map.getLocation = function(serialno) {
       var d = new Date(lat_lng.date);
       d = location_map.getDateString(d, "{0}-{1}-{2}") + " " + location_map.getTimeString(d,"{0}:{1}:{2}");
       $("#date").text(d);
+      $("#lat").text(lat_lng.lat);
+      $("#lng").text(lat_lng.lng);
       location_map.initMap(lat_lng);
   });
 
