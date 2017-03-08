@@ -26,14 +26,47 @@ location_map.initMap = function(lat_lng) {
 
 location_map.getLocation = function(serialno) {
   var req_url = "/location_get?serialno=" + serialno;
-  var lat_lng = {lat: 37.8347, lng: 139.1092};
+  var lat_lng = {lat: 37.8347, lng: 139.1092,date:""};
   $.get(req_url,function(response) {
       for(var i = 0;i < response.records;i++) {
         var row = response.rows[i].cell;
         lat_lng.lat = Number(row.latitude);
         lat_lng.lng = Number(row.longitude);
+        lat_lng.date = row.uploadtime;
       }
+      var d = new Date(lat_lng.date);
+      d = location_map.getDateString(d, "{0}-{1}-{2}") + " " + location_map.getTimeString(d,"{0}:{1}:00");
+      $("#date").text(d);
       location_map.initMap(lat_lng);
   });
 
 }
+
+location_map.getDateString = function (date, format_str) {
+	var date_format = location_map.format(format_str,
+			date.getFullYear(),
+			date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1),
+		    date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+	);
+	return date_format;
+};
+location_map.getTimeString = function (date, format_str) {
+	var date_format = location_map.format(format_str,
+			date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+			date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+	);
+	return date_format;
+};
+location_map.format = function (fmt, a) {
+	var rep_fn = undefined;
+
+	if (typeof a == "object") {
+		rep_fn = function (m, k) { return a[ k ]; }
+	}
+	else {
+		var args = arguments;
+		rep_fn = function (m, k) { return args[ parseInt(k) + 1 ]; }
+	}
+
+	return fmt.replace(/\{(\w+)\}/g, rep_fn);
+};

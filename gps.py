@@ -21,7 +21,7 @@ TEST_INT = 1   #(テスト用)インターバルを10:1/10[60s] 20:1/20[30s] 30:
 
 #グローバル変数
 g_macAddr = 0			#MACアドレス保存用
-g_sendInterval = 10		#送信インターバル(秒)
+g_sendInterval = 60		#送信インターバル(秒)
 g_cmpTime = 0			#時間経過比較用時刻
 port = 0
 config_file = '/home/pi/sensor_config.txt'
@@ -157,7 +157,6 @@ def main():
     #無限ループ
     while True:
         time.sleep(SLEEPTIME)
-        #10秒毎に温度湿度を計測して送信する
         values = parseData(readData())  #装置からデータ取得
         if len(values) > 0 :
             params = urllib.urlencode({'id':0,'serialno': sensor_no, 'latitude':values[1],'longitude':values[3],'altitude':0})
@@ -177,7 +176,6 @@ def main():
                 print '\r'
             except urllib2.URLError, e:
                 print e
-
 
     port.close()
 
