@@ -4,7 +4,7 @@
 		"username": "postgres",
 		"password": "niigatasl",
 		"options": {
-      "host": "localhost",
+      "host": "157.7.222.217",
       "port":   5432,
 			"dialect": "postgres",
 			"schema": "location_system",

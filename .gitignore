@@ -156,3 +156,4 @@ $RECYCLE.BIN/
 .DS_Store
 node_modules/
 gps-test/node_modules/
+gps-test/public/jquery-ui-1.10.4.custom/

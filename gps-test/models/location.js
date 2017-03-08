@@ -10,7 +10,9 @@ var Location = sequelize.define('location_tbl', {
 	serialno: Sequelize.STRING,
 	latitude: Sequelize.STRING,
 	longitude: Sequelize.STRING,
-	altitude: Sequelize.STRING
+	altitude: Sequelize.STRING,
+  uploadtime: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
+
 },
 {
 	schema:'location_system',

@@ -1,0 +1,15 @@
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    title= title
+    link(rel="stylesheet",href="jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    script(src="jquery-ui-1.10.4.custom/js/jquery-1.10.2.js")
+    script(src="jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js")
+    script(src="jquery-ui-1.10.4.custom/development-bundle/ui/i18n/jquery.ui.datepicker-ja.js")
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGozhRZa543OlNcCgGDQYej1ihDNXxOvg")
+    script(src="javascripts/location_map.js")
+    block head
+  body
+    block content
+      p Welcome to #{title}
+      div#map(style="width:600px;height:600px;")

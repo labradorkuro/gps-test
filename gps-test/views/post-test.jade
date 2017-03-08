@@ -1,5 +1,32 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    title= title
+    link(rel="stylesheet",href="jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    script(src="jquery-ui-1.10.4.custom/js/jquery-1.10.2.js")
+    script(src="jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js")
+    script(src="jquery-ui-1.10.4.custom/development-bundle/ui/i18n/jquery.ui.datepicker-ja.js")
+    script(src="javascripts/post-test.js")
+    block head
+  body
+    block content
+      p Welcome to #{title}
+      p
+        form#locationMasterForm
+          p
+            label ID
+            input#location_id(name="location_id",value="")
+          p
+            label SerialNo
+            input#serialno(name="serialno",value="")
+          p
+            label 緯度
+            input#latitude(name="latitude",value="")
+          p
+            label 経度
+            input#longitude(name="longitude", value="")
+          p
+            label 高度
+            input#altitude(name="altitude")
+          p
+            input#send_button(type="button" value="送信")
