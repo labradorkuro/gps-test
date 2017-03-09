@@ -21,15 +21,26 @@ TEST_INT = 1   #(テスト用)インターバルを10:1/10[60s] 20:1/20[30s] 30:
 
 #グローバル変数
 g_macAddr = 0			#MACアドレス保存用
-g_sendInterval = 60		#送信インターバル(秒)
+g_sendInterval = 10		#送信インターバル(秒)
 g_cmpTime = 0			#時間経過比較用時刻
 port = 0
 config_file = '/home/pi/sensor_config.txt'
+lat_lng = []
 
 url = ''
 #url = 'http://157.7.222.217:8081/nsl1.php'
 #url = 'http://kcs2000.info/remos/ajaxlib.php'
 
+class DetectThread(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+    def run(self):
+        global lat_lng
+        while True:
+            sleep(SLEEPTIME)
+            values = parseData(readData())  #装置からデータ取得
+            if len(values) == 15:
+                lat_lng = values
 
 #
 # センサー設定ファイルの読み込み
@@ -148,6 +159,7 @@ def main():
     global g_sendInterval
     global g_cmpTime
     global port
+    global lat_lng
 
     print "Version : " + VERSION_NO
     config = readConfig(config_file)
@@ -169,28 +181,34 @@ def main():
                       parity=serial.PARITY_NONE,
                       stopbits=serial.STOPBITS_ONE,
                       timeout=5.0)
+    #スレッド起動
+    thread1 = DetectThread()
+    thread1.start()
+    #t=threading.Thread(target=brink_led)
+    #t.start()
     #無限ループ
     while True:
         time.sleep(SLEEPTIME)
-        values = parseData(readData())  #装置からデータ取得
-        if len(values) > 0 :
-            params = urllib.urlencode({'id':0,'serialno': sensor_no, 'latitude':values[1],'longitude':values[3],'altitude':0})
-            try:
-                res_data = requests.post(url,{'location_id':0,'serialno': sensor_no, 'latitude':values[1],'longitude':values[3],'altitude':0})
-                #req = urllib2.Request(url)
-                # ヘッダ設定
-                #req.add_header('', 'application/x-www-form-urlencoded')
-                # パラメータ設定
-                #req.add_data(params)
-                #res = urllib2.urlopen(req)
-                print "SEND DATA:%s" % params
-                #res_data =res.read()
-                print res_data,     #,で改行されない
-                #json_res = json.loads(res_data)
-                #print "status=%s" % json_res['status'] + " int=%s" % json_res['int']
-                print '\r'
-            except urllib2.URLError, e:
-                print e
+        #10秒毎に温度湿度を計測して送信する
+        if( g_cmpTime+g_sendInterval < time.time()):
+            if len(lat_lng) > 0 :
+                try:
+                    res_data = requests.post(url,{'location_id':0,'serialno': sensor_no, 'latitude':lat_lng[1],'longitude':lat_lng[3],'altitude':0})
+                    g_cmpTime = time.time()
+                    #req = urllib2.Request(url)
+                    # ヘッダ設定
+                    #req.add_header('', 'application/x-www-form-urlencoded')
+                    # パラメータ設定
+                    #req.add_data(params)
+                    #res = urllib2.urlopen(req)
+                    print "SEND DATA:%s" % sensor_no + " latitude:%s" % lat_lng[1] + " longitude:%s" % lat_lng[3]
+                    #res_data =res.read()
+                    print res_data,     #,で改行されない
+                    #json_res = json.loads(res_data)
+                    #print "status=%s" % json_res['status'] + " int=%s" % json_res['int']
+                    print '\r'
+                except urllib2.URLError, e:
+                    print e
 
     port.close()
 
