@@ -23,20 +23,26 @@ location_map.initMap = function(lat_lng) {
       title: 'Car No.1'
     });
 };
-
+location_map.exchange = function(val) {
+  var v = val.split('.');
+  var dd = parseFloat(v[0]);
+  var mm = parseFloat(v[1]) / 60 / 10000;
+  var rtn =  dd + mm;
+  return rtn;
+}
 location_map.getLocation = function(serialno) {
   var req_url = "/location_get?serialno=" + serialno;
   var lat_lng = {lat: 37.8347, lng: 139.1092,date:""};
   $.get(req_url,function(response) {
       for(var i = 0;i < response.records;i++) {
         var row = response.rows[i].cell;
-        lat_lng.lat = parseFloat(row.latitude);
-        lat_lng.lng = parseFloat(row.longitude);
+        lat_lng.lat = location_map.exchange(row.latitude);
+        lat_lng.lng = location_map.exchange(row.longitude);
         lat_lng.date = row.uploadtime;
       }
       // TEST
-      lat_lng.lat += 0.3337;
-      lat_lng.lng += 0.0437;
+      //lat_lng.lat += 0.3337;
+      //lat_lng.lng += 0.0437;
       //
       var d = new Date(lat_lng.date);
       d = location_map.getDateString(d, "{0}-{1}-{2}") + " " + location_map.getTimeString(d,"{0}:{1}:{2}");
