@@ -38,41 +38,8 @@ location_tbl.get = function(req, res) {
     res.send("");
   });
 }
-// カレンダー
-location_tbl.getToday = function (format_str) {
-	var d = new Date();
-	return location_tbl.getDateString(d, format_str) + " " + location_tbl.getTimeString(d,"{0}:{1}:00");
-};
-location_tbl.getDateString = function (date, format_str) {
-	var date_format = location_tbl.format(format_str,
-			date.getFullYear(),
-			date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1),
-		    date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
-	);
-	return date_format;
-};
-location_tbl.getTimeString = function (date, format_str) {
-	var date_format = location_tbl.format(format_str,
-			date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
-			date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
-	);
-	return date_format;
-};
-location_tbl.format = function (fmt, a) {
-	var rep_fn = undefined;
 
-	if (typeof a == "object") {
-		rep_fn = function (m, k) { return a[ k ]; }
-	}
-	else {
-		var args = arguments;
-		rep_fn = function (m, k) { return args[ parseInt(k) + 1 ]; }
-	}
-
-	return fmt.replace(/\{(\w+)\}/g, rep_fn);
-};
-
-//
+//　データ保存処理
 location_tbl.save = function(req, res) {
   loc = req.body;
   loc.location_id = Number(loc.location_id);
@@ -119,3 +86,37 @@ location_tbl.save = function(req, res) {
     res.send("");
   });
 }
+
+// 日付処理
+location_tbl.getToday = function (format_str) {
+	var d = new Date();
+	return location_tbl.getDateString(d, format_str) + " " + location_tbl.getTimeString(d,"{0}:{1}:00");
+};
+location_tbl.getDateString = function (date, format_str) {
+	var date_format = location_tbl.format(format_str,
+			date.getFullYear(),
+			date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1),
+		    date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
+	);
+	return date_format;
+};
+location_tbl.getTimeString = function (date, format_str) {
+	var date_format = location_tbl.format(format_str,
+			date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+			date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
+	);
+	return date_format;
+};
+location_tbl.format = function (fmt, a) {
+	var rep_fn = undefined;
+
+	if (typeof a == "object") {
+		rep_fn = function (m, k) { return a[ k ]; }
+	}
+	else {
+		var args = arguments;
+		rep_fn = function (m, k) { return args[ parseInt(k) + 1 ]; }
+	}
+
+	return fmt.replace(/\{(\w+)\}/g, rep_fn);
+};
