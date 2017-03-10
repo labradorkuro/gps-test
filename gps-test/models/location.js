@@ -11,7 +11,7 @@ var Location = sequelize.define('location_tbl', {
 	latitude: Sequelize.STRING,
 	longitude: Sequelize.STRING,
 	altitude: Sequelize.STRING,
-  utc:  Sequelize.STRING
+  utc:  Sequelize.STRING,
   uploadtime: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
 
 },
