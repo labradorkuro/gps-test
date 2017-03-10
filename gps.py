@@ -190,23 +190,14 @@ def main():
                 lat_lng = parseGPGGA(gpgaa)
                 if len(lat_lng) == 15:
                     try:
-                        res_data = requests.post(url,{'location_id':0,'serialno': sensor_no, 'latitude':lat_lng[2],'longitude':lat_lng[4],'altitude':0,'utc':lat_lng[1]})
-                        g_cmpTime = time.time()
+                        res_data = requests.post(url,{'location_id':0,'serialno': sensor_no, 'latitude':lat_lng[2],'longitude':lat_lng[4],'altitude':lat_lng[9],'utc':lat_lng[1]})
                         gpgaa = ""
-                        #req = urllib2.Request(url)
-                        # ヘッダ設定
-                        #req.add_header('', 'application/x-www-form-urlencoded')
-                        # パラメータ設定
-                        #req.add_data(params)
-                        #res = urllib2.urlopen(req)
-                        print "SEND DATA:%s" % sensor_no + " latitude:%s" % lat_lng[1] + " longitude:%s" % lat_lng[3] + " UTC:%s" % lat_lng[1]
-                        #res_data =res.read()
+                        print "SEND DATA:%s" % sensor_no + " latitude:%s" % lat_lng[1] + " longitude:%s" % lat_lng[3] + "altitude:%s" % lat_lng[9] + " UTC:%s" % lat_lng[1]
                         print res_data,     #,で改行されない
-                        #json_res = json.loads(res_data)
-                        #print "status=%s" % json_res['status'] + " int=%s" % json_res['int']
                         print '\r'
-                    except urllib2.URLError, e:
+                    except requests.ConnectionError, e:
                         print e
+                    g_cmpTime = time.time()
 
     port.close()
 

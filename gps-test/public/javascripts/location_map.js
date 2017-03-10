@@ -38,6 +38,7 @@ location_map.getLocation = function(serialno) {
         var row = response.rows[i].cell;
         lat_lng.lat = location_map.exchange(row.latitude);
         lat_lng.lng = location_map.exchange(row.longitude);
+        lat_lng.altitude = row.altitude;
         lat_lng.utc = row.utc;
         lat_lng.date = row.uploadtime;
       }
@@ -50,6 +51,7 @@ location_map.getLocation = function(serialno) {
       $("#date").text(d);
       $("#lat").text(lat_lng.lat);
       $("#lng").text(lat_lng.lng);
+      $("#alt").text(lat_lng.altitude);
       $("#utc").text(lat_lng.utc);
       location_map.initMap(lat_lng);
   });
