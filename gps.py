@@ -25,7 +25,7 @@ g_sendInterval = 10		#送信インターバル(秒)
 g_cmpTime = 0			#時間経過比較用時刻
 port = 0
 config_file = '/home/pi/sensor_config.txt'
-lat_lng = []
+gpgaa = ""
 
 url = ''
 #url = 'http://157.7.222.217:8081/nsl1.php'
@@ -37,10 +37,7 @@ class DetectThread(threading.Thread):
     def run(self):
         global lat_lng
         while True:
-            sleep(SLEEPTIME)
-            values = parseData(readData())  #装置からデータ取得
-            if len(values) == 15:
-                lat_lng = values
+            checkData(readData())  #装置からデータ取得
 
 #
 # センサー設定ファイルの読み込み
@@ -120,16 +117,15 @@ def readData():
 #
 # 取得データからサーバに送信するデータを抽出する
 #
-def parseData(values):
+def checkData(values):
+    global gpgaa
     rtn_valuse = []
 #    if values[0:7]=='$GPGLL,':
 #        return parseGPGLL(values)
 #    else:
 #        return rtn_valuse
     if values[0:7]=='$GPGGA,':
-        return parseGPGGA(values)
-    else:
-        return rtn_valuse
+        gpgaa = values
 
 def parseGPGLL(values):
     v = []
@@ -147,8 +143,8 @@ def parseGPGGA(values):
     print 'parseGPGGA:%s' % values
     v = values.split(',')
     if len(v) == 15 and v[6] != '0':
-        v[1] = float(v[2]) / 100
-        v[3] = float(v[4]) / 100
+        v[2] = float(v[2]) / 100
+        v[4] = float(v[4]) / 100
         return v
     else:
         return []
@@ -159,7 +155,7 @@ def main():
     global g_sendInterval
     global g_cmpTime
     global port
-    global lat_lng
+    global gpgaa
 
     print "Version : " + VERSION_NO
     config = readConfig(config_file)
@@ -188,27 +184,29 @@ def main():
     #t.start()
     #無限ループ
     while True:
-        time.sleep(SLEEPTIME)
         #10秒毎に温度湿度を計測して送信する
         if( g_cmpTime+g_sendInterval < time.time()):
-            if len(lat_lng) > 0 :
-                try:
-                    res_data = requests.post(url,{'location_id':0,'serialno': sensor_no, 'latitude':lat_lng[1],'longitude':lat_lng[3],'altitude':0})
-                    g_cmpTime = time.time()
-                    #req = urllib2.Request(url)
-                    # ヘッダ設定
-                    #req.add_header('', 'application/x-www-form-urlencoded')
-                    # パラメータ設定
-                    #req.add_data(params)
-                    #res = urllib2.urlopen(req)
-                    print "SEND DATA:%s" % sensor_no + " latitude:%s" % lat_lng[1] + " longitude:%s" % lat_lng[3]
-                    #res_data =res.read()
-                    print res_data,     #,で改行されない
-                    #json_res = json.loads(res_data)
-                    #print "status=%s" % json_res['status'] + " int=%s" % json_res['int']
-                    print '\r'
-                except urllib2.URLError, e:
-                    print e
+            if gpgaa != "" :
+                lat_lng = parseGPGGA(gpgaa)
+                if len(lat_lng) == 15:
+                    try:
+                        res_data = requests.post(url,{'location_id':0,'serialno': sensor_no, 'latitude':lat_lng[2],'longitude':lat_lng[4],'altitude':0,'utc':lat_lng[1]})
+                        g_cmpTime = time.time()
+                        gpgaa = ""
+                        #req = urllib2.Request(url)
+                        # ヘッダ設定
+                        #req.add_header('', 'application/x-www-form-urlencoded')
+                        # パラメータ設定
+                        #req.add_data(params)
+                        #res = urllib2.urlopen(req)
+                        print "SEND DATA:%s" % sensor_no + " latitude:%s" % lat_lng[1] + " longitude:%s" % lat_lng[3] + " UTC:%s" % lat_lng[1]
+                        #res_data =res.read()
+                        print res_data,     #,で改行されない
+                        #json_res = json.loads(res_data)
+                        #print "status=%s" % json_res['status'] + " int=%s" % json_res['int']
+                        print '\r'
+                    except urllib2.URLError, e:
+                        print e
 
     port.close()
 

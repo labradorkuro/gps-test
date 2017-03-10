@@ -32,12 +32,13 @@ location_map.exchange = function(val) {
 }
 location_map.getLocation = function(serialno) {
   var req_url = "/location_get?serialno=" + serialno;
-  var lat_lng = {lat: 37.8347, lng: 139.1092,date:""};
+  var lat_lng = {lat: 37.8347, lng: 139.1092,utc:"",date:""};
   $.get(req_url,function(response) {
       for(var i = 0;i < response.records;i++) {
         var row = response.rows[i].cell;
         lat_lng.lat = location_map.exchange(row.latitude);
         lat_lng.lng = location_map.exchange(row.longitude);
+        lat_lng.utc = row.utc;
         lat_lng.date = row.uploadtime;
       }
       // TEST
@@ -49,6 +50,7 @@ location_map.getLocation = function(serialno) {
       $("#date").text(d);
       $("#lat").text(lat_lng.lat);
       $("#lng").text(lat_lng.lng);
+      $("#utc").text(lat_lng.utc);
       location_map.initMap(lat_lng);
   });
 

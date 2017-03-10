@@ -83,7 +83,7 @@ location_tbl.save = function(req, res) {
     if (data) {
       // 更新
       attr = {serialno:req.body.serialno,latitude:req.body.latitude,
-        longitude:req.body.longitude,altitude:req.body.altitude};
+        longitude:req.body.longitude,altitude:req.body.altitude,utc:req.body.utc};
       location.schema('location_system').update(attr,{where:{id:req.body.location_id}}).then(function(result) {
         attr.status = "OK";
         attr.int = 60;
@@ -98,7 +98,7 @@ location_tbl.save = function(req, res) {
     } else {
       // 新規登録
       attr = {serialno:req.body.serialno,latitude:req.body.latitude,
-        longitude:req.body.longitude,altitude:req.body.altitude};
+        longitude:req.body.longitude,altitude:req.body.altitude,utc:req.body.utc};
       console.log("serialno:" + req.body.serialno);
       var si = location.schema('location_system').build(attr);
       si.save().then(function(result) {
