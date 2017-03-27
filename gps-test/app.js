@@ -65,9 +65,10 @@ app.post('/devel/sync', sync.all(sequelize));
 app.use(logger('dev',{imediate:true}));
 
 var loc = models['location'];
+var moist = models['plants_moist'];
 
 var options = { "schema": "location_system" };
 loc.sync(options);
-
+moist.sync(options);
 
 module.exports = app;

@@ -1,17 +1,17 @@
-﻿//
-// 2017.03.08 t.tanaka
+//
+// 2017.03.27 t.tanaka
 // Model
-// 位置情報
+// 土中湿度と温度湿度データ
 //
 var Sequelize = require('sequelize');
 
-var Location = sequelize.define('location_tbl', {
+var Moist = sequelize.define('moist_tbl', {
   id: { type: Sequelize.INTEGER, autoIncrement: true ,primaryKey: true},
 	serialno: Sequelize.STRING,
-	latitude: Sequelize.STRING,
-	longitude: Sequelize.STRING,
-	altitude: Sequelize.STRING,
-  utc:  Sequelize.STRING,
+	moist_1: Sequelize.INTEGER,
+	moist_2: Sequelize.INTEGER,
+	temperature: Sequelize.INTEGER,
+  humidity:  Sequelize.INTEGER,
   uploadtime: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
 
 },
@@ -21,5 +21,5 @@ var Location = sequelize.define('location_tbl', {
 	timestamps: false
 });
 module.exports = function (sequelize, DataTypes) {
-	return Location;
+	return Moist;
 };
