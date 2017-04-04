@@ -3,7 +3,7 @@ module.exports = {
 // 日付処理
 getToday : function (format_str) {
 	var d = new Date();
-	return getDateString(d, format_str) + " " + date_lib.getTimeString(d,"{0}:{1}:00");
+	return getDateString(d, format_str) + " " + getTimeString(d,"{0}:{1}:00");
 },
 getDateString : function (date, format_str) {
 	var date_format = format(format_str,
