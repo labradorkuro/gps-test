@@ -47,18 +47,18 @@ plants_info.drawChart = function(info) {
 
     var data_moist = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
-      ['Moist_1', info.moist_1],
-      ['Moist_2', info.moist_2]
+      ['水分1', info.moist_1],
+      ['水分2', info.moist_2]
 
     ]);
     var data_temp = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
-      ['temperature', info.temperature]
+      ['気温', info.temperature]
 
     ]);
     var data_humi = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
-      ['humidity', info.humidity]
+      ['湿度', info.humidity]
 
     ]);
 
