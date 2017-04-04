@@ -22,10 +22,10 @@ plants_tbl.get = function(req, res) {
   var attr = {where:{serialno:serialno},order:[['uploadtime','desc']]};
   plants_moist.schema('location_system').find(attr).then(function(plants){
 
-    for(var i in location) {
+    for(var i in plants) {
       var row = { id: '', cell: [] };
-      row.id = location[i].id;
-      row.cell = location[i];
+      row.id = plants[i].id;
+      row.cell = plants[i];
       result.rows.push(row);
     }
     res.send(result);
