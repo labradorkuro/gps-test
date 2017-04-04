@@ -84,7 +84,7 @@ plants_info.drawChart = function(info) {
       greenFrom:45,greenTo:65,
       yellowFrom:65, yellowTo: 100,
       minorTicks: 5,
-      max:100
+      max:90
     };
 
     var chart_moist = new google.visualization.Gauge(document.getElementById('chart_moist'));
