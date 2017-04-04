@@ -19,6 +19,7 @@ sequelize = require('./libs/dbconn')(config);
 models = require('./models')(sequelize);
 
 var location_api = require('./api/location');
+var plants_moist_api = require('./api/plants');
 var app = express();
 
 
@@ -41,6 +42,10 @@ app.use('/users', users);
 
 app.post('/location_post',upload.array(),location_api.location_post); //api
 app.get('/location_get',location_api.location_get);
+// plants
+app.post('/moist_post',upload.array(),plants_moist_api.plants_moist_post); //api
+app.get('/moist_get',plants_moist_api.plants_moist_get);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
