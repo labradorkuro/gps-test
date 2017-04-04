@@ -43,7 +43,7 @@ plants_info.getInfo = function(serialno) {
 
 };
 
-plants_info.drawVisualization = function() {
+plants_info.drawChart = function() {
   var wrap = new google.visualization.ChartWrapper({
      'chartType':'LineChart',
      dataTable: [['Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
