@@ -53,7 +53,11 @@ plants_info.drawChart = function(info) {
     ]);
     var data_temp = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
-      ['temperature', info.temperature],
+      ['temperature', info.temperature]
+
+    ]);
+    var data_humi = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
       ['humidity', info.humidity]
 
     ]);
@@ -69,18 +73,28 @@ plants_info.drawChart = function(info) {
     var temp_options = {
       width: 400, height: 120,
       redFrom: 30, redTo: 100,
-      yellowFrom:25, yellowTo: 30,
+      greenFrom:20,greenTo:30,
+      yellowFrom:0, yellowTo: 20,
+      minorTicks: 5,
+      max:50
+    };
+    var humi_options = {
+      width: 400, height: 120,
+      redFrom: 0, redTo: 45,
+      greenFrom:45,greenTo:65,
+      yellowFrom:65, yellowTo: 100,
       minorTicks: 5,
       max:100
     };
 
-    var chart_moist = new google.visualization.Gauge(document.getElementById('chart_moist_1'));
-
+    var chart_moist = new google.visualization.Gauge(document.getElementById('chart_moist'));
     chart_moist.draw(data_moist, moist_options);
 
-    var chart_temp = new google.visualization.Gauge(document.getElementById('chart_moist_2'));
-
+    var chart_temp = new google.visualization.Gauge(document.getElementById('chart_temp'));
     chart_temp.draw(data_temp, temp_options);
+
+    var chart_humi = new google.visualization.Gauge(document.getElementById('chart_humi'));
+    chart_temp.draw(data_humi, humi_options);
 
 };
 
