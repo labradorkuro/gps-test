@@ -74,11 +74,11 @@ plants_info.drawChart = function(info) {
 
     var chart_moist = new google.visualization.Gauge(document.getElementById('chart_moist_1'));
 
-    chart_moist.draw(moist_data, moist_options);
+    chart_moist.draw(data_moist, moist_options);
 
     var chart_temp = new google.visualization.Gauge(document.getElementById('chart_moist_2'));
 
-    chart_temp.draw(temp_data, temp_options);
+    chart_temp.draw(data_temp, temp_options);
 
 };
 
