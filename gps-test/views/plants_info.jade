@@ -1,0 +1,36 @@
+html(lang="ja")
+  head
+    meta(charset="utf-8")
+    title= title
+    link(rel="stylesheet",href="jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.css")
+    script(src="jquery-ui-1.10.4.custom/js/jquery-1.10.2.js")
+    script(src="jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js")
+    script(src="jquery-ui-1.10.4.custom/development-bundle/ui/i18n/jquery.ui.datepicker-ja.js")
+    script(src="javascripts/plants_info.js")
+    block head
+  body
+    block content
+      p Welcome to #{title}
+      p
+        label 更新日時：
+        label#date
+      p
+        table
+          tr
+            td
+              label 温度（室内）
+            td
+              label#temperature
+            td
+              label 湿度（室内）
+            td
+              label#humidity
+          tr
+            td
+              label 土中湿度（１）
+            td
+              label#moist_1
+            td
+              label 土中湿度（２）
+            td
+              label#moist_2

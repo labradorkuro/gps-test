@@ -10,6 +10,7 @@ var upload = multer();
 var index = require('./routes/index');
 var post_test = require('./routes/post-test');
 var location_map = require('./routes/location_map');
+var plants_info = require('./routes/plants_info');
 var users = require('./routes/users');
 var config = require('config');
 
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/post-test', post_test);
 app.use('/location_map', location_map);
+app.use('/plants_info', plants_info);
 app.use('/users', users);
 
 app.post('/location_post',upload.array(),location_api.location_post); //api
