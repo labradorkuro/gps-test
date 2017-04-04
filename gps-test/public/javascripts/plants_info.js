@@ -32,8 +32,8 @@ plants_info.getInfo = function(serialno) {
       var d = new Date(info.date);
       d = plants_info.getDateString(d, "{0}-{1}-{2}") + " " + plants_info.getTimeString(d,"{0}:{1}:{2}");
       $("#date").text(d);
-      $("#temperature").text(info.temperature);
-      $("#humidity").text(info.humidity);
+      $("#temperature").text(info.temperature + "℃");
+      $("#humidity").text(info.humidity + "%");
       $("#moist_1").text(info.moist_1);
       $("#moist_2").text(info.moist_2);
   });
