@@ -94,7 +94,7 @@ plants_info.drawChart = function(info) {
     chart_temp.draw(data_temp, temp_options);
 
     var chart_humi = new google.visualization.Gauge(document.getElementById('chart_humi'));
-    chart_temp.draw(data_humi, humi_options);
+    chart_humio.draw(data_humi, humi_options);
 
 };
 
