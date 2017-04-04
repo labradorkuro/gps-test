@@ -10,6 +10,7 @@ $(function ()　{
 var location_map = location_map || {};
 location_map.timeup = function() {
     location_map.getLocation("00000000f94084a4")
+    setTimeout(location_map.timeup,10000);
 };
 location_map.initMap = function(lat_lng) {
     // Create a map object and specify the DOM element for display.
