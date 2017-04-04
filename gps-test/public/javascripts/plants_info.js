@@ -71,7 +71,7 @@ plants_info.drawChart = function(info) {
       max:1000
     };
     var temp_options = {
-      width: 400, height: 120,
+      width: 130, height: 120,
       redFrom: 30, redTo: 100,
       greenFrom:20,greenTo:30,
       yellowFrom:0, yellowTo: 20,
@@ -79,7 +79,7 @@ plants_info.drawChart = function(info) {
       max:50
     };
     var humi_options = {
-      width: 400, height: 120,
+      width: 130, height: 120,
       redFrom: 0, redTo: 45,
       greenFrom:45,greenTo:65,
       yellowFrom:65, yellowTo: 100,
