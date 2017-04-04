@@ -76,7 +76,7 @@ plants_info.drawChart = function(info) {
       greenFrom:20,greenTo:30,
       yellowFrom:0, yellowTo: 20,
       minorTicks: 5,
-      max:50
+      max:40
     };
     var humi_options = {
       width: 130, height: 120,
