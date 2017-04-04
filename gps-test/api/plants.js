@@ -20,14 +20,20 @@ plants_tbl.get = function(req, res) {
   var serialno = req.query.serialno;
   var date = date_lib.getToday("{0}-{1}-{2}");
   var attr = {where:{serialno:serialno},order:[['uploadtime','desc']]};
-  plants_moist.schema('location_system').find(attr).then(function(plants){
-
+  plants_moist.schema('location_system').findOne(attr).then(function(plants){
+/*
     for(var i in plants) {
       var row = { id: '', cell: [] };
       row.id = plants[i].id;
       row.cell = plants[i];
       result.rows.push(row);
     }
+*/
+    var row = { id: '', cell: [] };
+    row.id = plants.id;
+    row.cell = plants;
+    result.rows.push(row);
+    result.records = 1;
     res.send(result);
   }).catch(function(error){
     console.log(error);
