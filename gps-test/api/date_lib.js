@@ -3,10 +3,10 @@ module.exports = {
 // 日付処理
 getToday : function (format_str) {
 	var d = new Date();
-	return date_lib.getDateString(d, format_str) + " " + date_lib.getTimeString(d,"{0}:{1}:00");
+	return getDateString(d, format_str) + " " + date_lib.getTimeString(d,"{0}:{1}:00");
 },
 getDateString : function (date, format_str) {
-	var date_format = date_lib.format(format_str,
+	var date_format = format(format_str,
 			date.getFullYear(),
 			date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1),
 		    date.getDate() < 10 ? "0" + date.getDate() : date.getDate()
@@ -14,7 +14,7 @@ getDateString : function (date, format_str) {
 	return date_format;
 },
 getTimeString : function (date, format_str) {
-	var date_format = date_lib.format(format_str,
+	var date_format = format(format_str,
 			date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
 			date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()
 	);
