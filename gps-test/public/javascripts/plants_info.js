@@ -3,16 +3,14 @@
 $(function ()　{
     'use strict';
   // 初期化
-  plants_info.getInfo("00000000d8099b6a");
-  setTimeout(plants_info.timeup,10000);
+  google.charts.load('current', {'packages':['gauge']});
+  //google.charts.load('current');
+  google.charts.setOnLoadCallback(plants_info.timeup);
 });
 
 var plants_info = plants_info || {};
 
 plants_info.timeup = function() {
-    google.charts.load('current', {'packages':['gauge']});
-    //google.charts.load('current');
-    google.charts.setOnLoadCallback(plants_info.drawChart);
 
     plants_info.getInfo("00000000d8099b6a");
     setTimeout(plants_info.timeup,10000);
@@ -46,6 +44,7 @@ plants_info.getInfo = function(serialno) {
 };
 
 plants_info.drawChart = function(info) {
+
     var data_moist = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
       ['Moist_1', info.moist_1],
