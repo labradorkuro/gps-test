@@ -45,7 +45,7 @@ plants_tbl.save = function(req, res) {
   var attr = {where:{id:plants.id}};
   console.log("save");
   // 検索
-  plants.schema('location_system').find(attr).then(function(data){
+  plants_moist.schema('location_system').find(attr).then(function(data){
     if (data) {
       // 更新
       attr = {serialno:plants.serialno,moist_1:plants.moist_1,moist_2:plants.moist_2,temperature:plants.temperature,humidity:plants.humidity};
