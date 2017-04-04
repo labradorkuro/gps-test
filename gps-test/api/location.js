@@ -1,7 +1,7 @@
 //
 //
 //
-var date_lib = require('./date_lib');
+var date_lib = require('date_lib');
 
 var location = models['location'];
 
