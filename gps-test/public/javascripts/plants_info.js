@@ -10,7 +10,8 @@ $(function ()　{
 var plants_info = plants_info || {};
 
 plants_info.timeup = function() {
-    google.charts.load('current');
+    google.charts.load('current', {'packages':['gauge']});
+    //google.charts.load('current');
     google.charts.setOnLoadCallback(plants_info.drawChart);
 
     plants_info.getInfo("00000000d8099b6a");
