@@ -10,6 +10,9 @@ $(function ()　{
 var plants_info = plants_info || {};
 
 plants_info.timeup = function() {
+    google.charts.load('current');
+    google.charts.setOnLoadCallback(plants_info.drawChart);
+
     plants_info.getInfo("00000000d8099b6a");
     setTimeout(plants_info.timeup,10000);
 };
@@ -38,7 +41,19 @@ plants_info.getInfo = function(serialno) {
       $("#moist_2").text(info.moist_2);
   });
 
-}
+};
+
+plants_info.drawVisualization = function() {
+  var wrap = new google.visualization.ChartWrapper({
+     'chartType':'LineChart',
+     dataTable: [['Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
+                    [700, 300, 400, 500, 600, 800]],
+     'containerId':'chart_moist_1',
+     'query':'SELECT A,D WHERE D > 100 ORDER BY D',
+     'options': {'title':'Population Density (people/km^2)', 'legend':'none'}
+     });
+   wrap.draw();
+};
 
 plants_info.getDateString = function (date, format_str) {
 	var date_format = plants_info.format(format_str,

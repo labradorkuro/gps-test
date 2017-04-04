@@ -6,6 +6,7 @@ html(lang="ja")
     script(src="jquery-ui-1.10.4.custom/js/jquery-1.10.2.js")
     script(src="jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.js")
     script(src="jquery-ui-1.10.4.custom/development-bundle/ui/i18n/jquery.ui.datepicker-ja.js")
+    script(src="https://www.gstatic.com/charts/loader.js")
     script(src="javascripts/plants_info.js")
     block head
   body
@@ -34,3 +35,6 @@ html(lang="ja")
               label 土中湿度（２）
             td
               label#moist_2
+      p
+        div#chart_moist_1(style="width:640px;height:640px;")
+        div#chart_moist_2(style="width:640px;height:640px;")
