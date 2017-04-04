@@ -44,15 +44,37 @@ plants_info.getInfo = function(serialno) {
 };
 
 plants_info.drawChart = function() {
-  var wrap = new google.visualization.ChartWrapper({
-     'chartType':'LineChart',
-     dataTable: [['Germany', 'USA', 'Brazil', 'Canada', 'France', 'RU'],
-                    [700, 300, 400, 500, 600, 800]],
-     'containerId':'chart_moist_1',
-     'query':'SELECT A,D WHERE D > 100 ORDER BY D',
-     'options': {'title':'Population Density (people/km^2)', 'legend':'none'}
-     });
-   wrap.draw();
+    var data = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['Memory', 80],
+      ['CPU', 55],
+      ['Network', 68]
+    ]);
+
+    var options = {
+      width: 400, height: 120,
+      redFrom: 90, redTo: 100,
+      yellowFrom:75, yellowTo: 90,
+      minorTicks: 5
+    };
+
+    var chart = new google.visualization.Gauge(document.getElementById('chart_moist_1'));
+
+    chart.draw(data, options);
+
+    setInterval(function() {
+      data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+      chart.draw(data, options);
+    }, 13000);
+    setInterval(function() {
+      data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+      chart.draw(data, options);
+    }, 5000);
+    setInterval(function() {
+      data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+      chart.draw(data, options);
+    }, 26000);
+
 };
 
 plants_info.getDateString = function (date, format_str) {
