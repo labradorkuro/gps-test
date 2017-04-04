@@ -63,13 +63,15 @@ plants_info.drawChart = function(info) {
       redFrom: 0, redTo: 300,
       greenFrom:300,greenTo:900,
       yellowFrom:900, yellowTo: 1000,
-      minorTicks: 5
+      minorTicks: 5,
+      max:1000
     };
     var temp_options = {
       width: 400, height: 120,
       redFrom: 30, redTo: 100,
       yellowFrom:25, yellowTo: 30,
-      minorTicks: 5
+      minorTicks: 5,
+      max:100
     };
 
     var chart_moist = new google.visualization.Gauge(document.getElementById('chart_moist_1'));
