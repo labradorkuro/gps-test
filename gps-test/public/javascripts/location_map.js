@@ -4,7 +4,7 @@ $(function ()　{
     'use strict';
   // 初期化
   location_map.getLocation("00000000f94084a4")
-  setTimeout("location_map.timeup()",10000);
+  setTimeout(location_map.timeup,10000);
 });
 
 var location_map = location_map || {};
