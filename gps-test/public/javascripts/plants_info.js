@@ -40,41 +40,46 @@ plants_info.getInfo = function(serialno) {
       $("#humidity").text(info.humidity + "%");
       $("#moist_1").text(info.moist_1);
       $("#moist_2").text(info.moist_2);
+      plants_info.drawChart(info);
   });
 
 };
 
-plants_info.drawChart = function() {
-    var data = google.visualization.arrayToDataTable([
+plants_info.drawChart = function(info) {
+    var data_moist = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
-      ['Memory', 80],
-      ['CPU', 55],
-      ['Network', 68]
+      ['Moist_1', info.moist_1],
+      ['Moist_2', info.moist_2]
+
+    ]);
+    var data_temp = google.visualization.arrayToDataTable([
+      ['Label', 'Value'],
+      ['temperature', info.temperature],
+      ['humidity', info.humidity]
+
     ]);
 
-    var options = {
+    var moist_options = {
       width: 400, height: 120,
-      redFrom: 90, redTo: 100,
-      yellowFrom:75, yellowTo: 90,
+      redFrom: 0, redTo: 300,
+      greenFrom:300,greenTo:900,
+      yellowFrom:900, yellowTo: 1000,
+      minorTicks: 5
+    };
+    var temp_options = {
+      width: 400, height: 120,
+      redFrom: 30, redTo: 100,
+      yellowFrom:25, yellowTo: 30,
       minorTicks: 5
     };
 
-    var chart = new google.visualization.Gauge(document.getElementById('chart_moist_1'));
+    var chart_moist = new google.visualization.Gauge(document.getElementById('chart_moist_1'));
 
-    chart.draw(data, options);
+    chart_moist.draw(moist_data, moist_options);
 
-    setInterval(function() {
-      data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-      chart.draw(data, options);
-    }, 13000);
-    setInterval(function() {
-      data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
-      chart.draw(data, options);
-    }, 5000);
-    setInterval(function() {
-      data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
-      chart.draw(data, options);
-    }, 26000);
+    var chart_temp = new google.visualization.Gauge(document.getElementById('chart_moist_2'));
+
+    chart_temp.draw(temp_data, temp_options);
 
 };
 
