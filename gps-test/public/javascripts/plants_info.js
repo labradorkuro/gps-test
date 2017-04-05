@@ -66,23 +66,23 @@ plants_info.drawChart = function(info) {
       width: 400, height: 120,
       redFrom: 0, redTo: 300,
       greenFrom:300,greenTo:900,
-      yellowFrom:900, yellowTo: 1000,
+      yellowFrom:900, yellowTo: 950,
       minorTicks: 5,
-      max:1000
+      max:950
     };
     var temp_options = {
       width: 130, height: 120,
-      redFrom: 30, redTo: 100,
-      greenFrom:20,greenTo:30,
-      yellowFrom:0, yellowTo: 20,
+      redFrom: 35, redTo: 40,
+      greenFrom:0,greenTo:30,
+      yellowFrom:30, yellowTo: 35,
       minorTicks: 5,
       max:40
     };
     var humi_options = {
       width: 130, height: 120,
-      redFrom: 0, redTo: 45,
+      //redFrom: 0, redTo: 45,
       greenFrom:45,greenTo:65,
-      yellowFrom:65, yellowTo: 100,
+      //yellowFrom:65, yellowTo: 100,
       minorTicks: 5,
       max:90
     };
