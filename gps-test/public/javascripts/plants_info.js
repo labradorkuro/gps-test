@@ -12,7 +12,8 @@ var plants_info = plants_info || {};
 
 plants_info.timeup = function() {
 
-    plants_info.getInfo("00000000d8099b6a");
+//    plants_info.getInfo("00000000d8099b6a");
+    plants_info.getInfo("00000000c3a024dd");
     setTimeout(plants_info.timeup,10000);
 };
 plants_info.getInfo = function(serialno) {
